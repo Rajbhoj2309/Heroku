@@ -9,7 +9,7 @@ import com.heroku.model.User;
 public interface UserRepositoryA extends JpaRepository<User, Long>{
 	
 	Optional<User> findByName(String name);
-	Optional<User> findByUserName(String username);
+	Optional<User> findByUserName(String userName);
 	
 
 }

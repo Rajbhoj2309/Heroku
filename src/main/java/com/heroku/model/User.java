@@ -24,7 +24,7 @@ public class User {
 	@Column(name="name")
 	private String name;
 	@Column(name="username",unique = true)
-	private String username;
+	private String userName;
 	
 	@Column(name="createTime")
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -40,7 +40,7 @@ public class User {
 		super();
 		this.id = id;
 		this.name = name;
-		this.username = username;
+		this.userName = username;
 		this.createTime = createTime;
 	}
 
@@ -61,11 +61,11 @@ public class User {
 	}
 
 	public String getUsername() {
-		return username;
+		return userName;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.userName = username;
 	}
 
 	public LocalDateTime getCreateTime() {
@@ -78,7 +78,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", username=" + username + ", createTime=" + createTime + "]";
+		return "User [id=" + id + ", name=" + name + ", username=" + userName + ", createTime=" + createTime + "]";
 	}
 	
 	

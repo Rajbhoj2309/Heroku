@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.heroku.model.User;
 import com.heroku.repository.UserRepository;
 import com.heroku.repository.UserRepositoryA;
+import com.heroku.repository.UserRepositoryQ;
 
 @Controller
 public class UserController {
@@ -24,6 +25,9 @@ public class UserController {
 	
 	@Autowired
 	private UserRepositoryA userRepositoryA;
+	
+	@Autowired
+	private UserRepositoryQ userRepositoryQ;
 //Circular view path [add]: would dispatch back to the current handler URL [/add] again. 
 //	Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, 
 //	due to default view name generation.)	
@@ -52,13 +56,26 @@ public class UserController {
 	
 	
 	@GetMapping("/findusername/{username}")
-	public ResponseEntity<User> getUserName(@PathVariable String userName){
-	Optional<User> findByUserName = userRepositoryA.findByUserName(userName);
+	public ResponseEntity<User> getUserName(@PathVariable String username){
+	Optional<User> findByUserName = userRepositoryA.findByUserName(username);
 	if (findByUserName.isEmpty()) {
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
 	return new ResponseEntity<User>(HttpStatus.FOUND);
 	}
+	
+	
+//	@GetMapping("/maxId")
+//    public ResponseEntity<Long> getMaxUserId() {
+//        Long maxId = userRepositoryQ.findMaxId();
+//
+//        if (maxId != null) {
+//            return new ResponseEntity<>(maxId, HttpStatus.OK);
+//        } else {
+//            // Handle the case where the result is null (e.g., no users in the database)
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 	
 
 	
