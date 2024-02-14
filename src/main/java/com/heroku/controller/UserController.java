@@ -1,5 +1,6 @@
 package com.heroku.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import com.heroku.model.User;
 import com.heroku.repository.UserRepository;
 import com.heroku.repository.UserRepositoryA;
 import com.heroku.repository.UserRepositoryQ;
+
+import jakarta.persistence.EntityManager;
 
 @Controller
 public class UserController {
@@ -65,18 +68,60 @@ public class UserController {
 	}
 	
 	
-//	@GetMapping("/maxId")
-//    public ResponseEntity<Long> getMaxUserId() {
-//        Long maxId = userRepositoryQ.findMaxId();
-//
-//        if (maxId != null) {
-//            return new ResponseEntity<>(maxId, HttpStatus.OK);
-//        } else {
-//            // Handle the case where the result is null (e.g., no users in the database)
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+	@GetMapping("/maxId")
+    public ResponseEntity<Long> getMaxUserId() {
+        Long maxId = userRepositoryQ.findMaxId();
+
+        if (maxId != null) {
+            return new ResponseEntity<>(maxId, HttpStatus.OK);
+        } else {
+            // Handle the case where the result is null (e.g., no users in the database)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 	
+	@GetMapping("/firstLetter/{userId}")
+    public ResponseEntity<String> getFirstLetterOfUserName(@PathVariable Long userId) {
+        // Call the repository method
+        Optional<String> firstLetter = userRepositoryQ.findFirstLetterOfUserName(userId);
+
+        // Check if the result is present
+        if (firstLetter.isPresent()) {
+            return ResponseEntity.ok(firstLetter.get());
+        } else {
+            // Handle the case where the user or first letter is not found
+            return ResponseEntity.notFound().build();
+        }
+    }
+	
+	@GetMapping("/startsWithK")
+    public ResponseEntity<List<User>> getUsersWithNameStartingWithK() {
+        // Call the repository method
+        List<User> usersStartingWithK = userRepositoryQ.findUsersWithNameStartingWithK();
+
+        // Check if the result is not empty
+        if (!usersStartingWithK.isEmpty()) {
+            return ResponseEntity.ok(usersStartingWithK);
+        } else {
+            // Handle the case where no users are found
+            return ResponseEntity.notFound().build();
+        }
+    }
+	
+	@GetMapping("/startsWith/{letter}")
+    public ResponseEntity<List<User>> getUsersWithNameStartingWithLetter(@PathVariable char letter) {
+        // Call the repository method with the provided letter
+        List<User> usersStartingWithLetter = userRepositoryQ.findUsersWithNameStartingWithLetter(letter);
+
+        // Check if the result is not empty
+        if (!usersStartingWithLetter.isEmpty()) {
+            return ResponseEntity.ok(usersStartingWithLetter);
+        } else {
+            // Handle the case where no users are found
+            return ResponseEntity.notFound().build();
+        }
+    }
+	 
 
 	
 

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.heroku.repository")
+//@EnableJpaRepositories(basePackages = "com.heroku.repository")
 public class HerokuApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HerokuApplication.class, args);
