@@ -111,11 +111,12 @@ public class UserController {
 	
 //	@GetMapping("/startsWith/{letter}")
 	//http://localhost:8080/startsWith?letter=o  //in url path we have to need letter variable bcoz we are taking in parameter as variable name.
+	
 	@GetMapping("/startsWith")
     public ResponseEntity<List<User>> getUsersWithNameStartingWithLetter(@RequestParam char letter) {
         // Call the repository method with the provided letter
         List<User> usersStartingWithLetter = userRepositoryQ.findUsersWithNameStartingWithLetter(letter);
-
+        System.out.println(usersStartingWithLetter.toString());
         // Check if the result is not empty
         if (!usersStartingWithLetter.isEmpty()) {
             return ResponseEntity.ok(usersStartingWithLetter);
