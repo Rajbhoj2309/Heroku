@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.model.User;
 import com.heroku.repository.UserRepository;
@@ -108,8 +109,10 @@ public class UserController {
         }
     }
 	
-	@GetMapping("/startsWith/{letter}")
-    public ResponseEntity<List<User>> getUsersWithNameStartingWithLetter(@PathVariable char letter) {
+//	@GetMapping("/startsWith/{letter}")
+	//http://localhost:8080/startsWith?letter=o  //in url path we have to need letter variable bcoz we are taking in parameter as variable name.
+	@GetMapping("/startsWith")
+    public ResponseEntity<List<User>> getUsersWithNameStartingWithLetter(@RequestParam char letter) {
         // Call the repository method with the provided letter
         List<User> usersStartingWithLetter = userRepositoryQ.findUsersWithNameStartingWithLetter(letter);
 
